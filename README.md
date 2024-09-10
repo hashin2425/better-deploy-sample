@@ -1,0 +1,2 @@
+# better-deploy-sample
+GitHubのActionsやReleases機能をうまく使って、ステージング環境と本番環境にデプロイするためのCI練習
