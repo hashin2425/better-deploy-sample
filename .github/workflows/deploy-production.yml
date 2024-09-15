@@ -1,0 +1,28 @@
+name: Deploy to Production Environment
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "Branch to deploy (must be main)"
+        required: true
+        default: "main"
+
+jobs:
+  check-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if branch is main
+        if: github.event.inputs.branch != 'main'
+        run: |
+          echo "Error: Only the 'main' branch can be deployed to production."
+          exit 1
+
+  deploy-production:
+    needs: check-branch
+    uses: ./.github/workflows/deploy-steps.yml
+    with:
+      environment: production
+    secrets:
+      AZURE_FUNCTIONAPP_PUBLISH_PROFILE: ${{ secrets.PROD_AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
+      AZURE_FUNCTIONAPP_NAME: ${{ secrets.PROD_AZURE_FUNCTIONAPP_NAME }}
