@@ -36,3 +36,6 @@ jobs:
     uses: ./.github/workflows/create-release.yml
     with:
       deployment_notes: ${{ github.event.inputs.deployment_notes }}
+    permissions:
+      contents: write
+      pull-requests: write
