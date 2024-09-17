@@ -2,6 +2,10 @@ name: Create Release
 
 on:
   workflow_call:
+    inputs:
+      deployment_notes:
+        required: false
+        type: string
 
 jobs:
   create-release:
@@ -49,6 +53,9 @@ jobs:
           release_name: Release ${{ steps.version.outputs.version }}
           body: |
             Release of version ${{ steps.version.outputs.version }}
+
+            Deployment Notes:
+            ${{ inputs.deployment_notes }}
 
             Changes in this release:
             ${{ steps.release_notes.outputs.RELEASE_NOTES }}

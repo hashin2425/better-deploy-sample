@@ -7,6 +7,10 @@ on:
         description: "Branch to deploy (must be main)"
         required: true
         default: "main"
+      deployment_notes:
+        description: "Deployment notes or comments"
+        required: false
+        type: string
 
 jobs:
   check-branch:
@@ -30,3 +34,5 @@ jobs:
   create-release:
     needs: deploy-production
     uses: ./.github/workflows/create-release.yml
+    with:
+      deployment_notes: ${{ github.event.inputs.deployment_notes }}
