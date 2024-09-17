@@ -1,4 +1,4 @@
-name: Create Release
+name: "[Auto] Create Release"
 
 permissions:
   contents: write

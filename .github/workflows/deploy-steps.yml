@@ -1,4 +1,4 @@
-name: Deploy Steps
+name: "[Auto] Deploy Steps"
 
 on:
   workflow_call:
