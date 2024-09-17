@@ -2,10 +2,6 @@ name: Create Release
 
 on:
   workflow_call:
-    inputs:
-      version:
-        required: true
-        type: string
 
 jobs:
   create-release:
@@ -15,16 +11,31 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Get current date
+        id: date
+        run: echo "date=$(date +'%Y.%m.%d')" >> $GITHUB_OUTPUT
+
+      - name: Get release count for today
+        id: release_count
+        run: |
+          count=$(git tag -l "v${{ steps.date.outputs.date }}-*" | wc -l)
+          next_count=$(printf "%02d" $((count + 1)))
+          echo "count=$next_count" >> $GITHUB_OUTPUT
+
+      - name: Set version
+        id: version
+        run: echo "version=v${{ steps.date.outputs.date }}-${{ steps.release_count.outputs.count }}" >> $GITHUB_OUTPUT
+
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ inputs.version }}
-          release_name: Release ${{ inputs.version }}
+          tag_name: ${{ steps.version.outputs.version }}
+          release_name: Release ${{ steps.version.outputs.version }}
           body: |
-            Release of version ${{ inputs.version }}
+            Release of version ${{ steps.version.outputs.version }}
 
             Changes in this release:
             - [Add release notes here]

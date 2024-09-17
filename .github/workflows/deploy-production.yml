@@ -7,9 +7,6 @@ on:
         description: "Branch to deploy (must be main)"
         required: true
         default: "main"
-      version:
-        description: "Release version (e.g., v1.0.0)"
-        required: true
 
 jobs:
   check-branch:
@@ -33,5 +30,3 @@ jobs:
   create-release:
     needs: deploy-production
     uses: ./.github/workflows/create-release.yml
-    with:
-      version: ${{ github.event.inputs.version }}
