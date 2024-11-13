@@ -10,7 +10,7 @@ GitHub の Actions や Releases 機能をうまく使って、ステージング
 
 ### 本番環境へのデプロイ
 
-Actionsから`Deploy to Production Environment and Create Release`タスクを実行することで、本番環境へデプロイが行われます。
+Actions から`Deploy to Production Environment and Create Release`タスクを実行することで、本番環境へデプロイが行われます。
 
 ブランチは必ず`main`を指定し、それ以外の場合は自動的に実行が停止します。
 
@@ -29,3 +29,5 @@ Actionsから`Deploy to Production Environment and Create Release`タスクを�
 ### Dependabot / CodeQL
 
 Dependabot でバージョン更新を、CodeQL でコードの品質管理を行っています。GitHub 標準のものを使っています。
+
+ほげ
